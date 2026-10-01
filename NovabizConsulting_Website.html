@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+    <script>
+        function timestamp() {
+            var response = document.getElementById("g-recaptcha-response");
+
+            if (response == null || response.value.trim() == "") {
+                var elems = JSON.parse(
+                    document.getElementsByName("captcha_settings")[0].value
+                );
+
+                elems["ts"] = JSON.stringify(new Date().getTime());
+
+                document.getElementsByName("captcha_settings")[0].value =
+                    JSON.stringify(elems);
+            }
+        }
+
+        setInterval(timestamp, 500);
+    </script>
+</head>
+
+<body>
+
+    <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D5h000009PQya"
+        method="POST">
+
+        <!-- Salesforce Configuration -->
+        <input type="hidden" name="captcha_settings"
+            value='{"keyname":"Novabiz_Google_Recaptcha","fallback":"true","orgId":"00D5h000009PQya","ts":""}'>
+
+        <input type="hidden" name="oid" value="00D5h000009PQya">
+
+        <input type="hidden" name="retURL" value="https://novabiz.co.in/?submitted=1#contact">
+
+
+        <!-- Last Name - Required -->
+        <label for="last_name">Your Name *</label>
+        <input id="last_name" maxlength="80" name="last_name" size="20" type="text" required>
+        <br><br>
+
+
+        <!-- Email - Required -->
+        <label for="email">Email *</label>
+        <input id="email" maxlength="80" name="email" size="20" type="email" required>
+        <br><br>
+
+
+        <!-- Company - Required -->
+        <label for="company">Company *</label>
+        <input id="company" maxlength="40" name="company" size="20" type="text" required>
+        <br><br>
+
+
+        <!-- Phone - Required -->
+        <label for="phone">Phone</label>
+        <input id="phone" maxlength="40" name="phone" size="20" type="tel">
+        <br><br>
+
+
+        <!-- Description - Optional -->
+        <label for="description">Description</label>
+
+        <textarea id="description" name="description" rows="5" cols="40"></textarea>
+
+        <br><br>
+
+
+        <!-- Lead Source -->
+        <input type="hidden" id="lead_source" name="lead_source" value="Website">
+
+
+        <!-- ===================================================== -->
+        <!-- Hidden UTM Fields -->
+        <!-- These fields are submitted to Salesforce but hidden -->
+        <!-- ===================================================== -->
+
+        <input type="hidden" id="UTM_Campaign__c" name="UTM_Campaign__c" value="">
+
+        <input type="hidden" id="UTM_Medium__c" name="UTM_Medium__c" value="">
+
+        <input type="hidden" id="UTM_Source__c" name="UTM_Source__c" value="">
+
+
+        <!-- Google reCAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="6LeuudMtAAAAAAuPn8A3AZgfhD8NHwhYlf3MAVbb"></div>
+
+        <br>
+
+
+        <!-- Submit -->
+        <input type="submit" name="submit" value="Submit">
+
+    </form>
+
+</body>
+
+</html>
